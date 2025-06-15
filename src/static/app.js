@@ -76,6 +76,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Initialize app
-  fetchActivities();
+  // Initialize app with error handling
+  async function initializeApp() {
+    try {
+      await fetchActivities();
+    } catch (error) {
+      activitiesList.innerHTML = "<p>Failed to load activities. Please try again later.</p>";
+      console.error("Error initializing app:", error);
+    }
+  }
+  
+  initializeApp();
 });
