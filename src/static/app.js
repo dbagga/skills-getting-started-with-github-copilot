@@ -36,6 +36,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Centralized error handling for app initialization
+  async function initializeApp() {
+    try {
+      await fetchActivities();
+    } catch (error) {
+      activitiesList.innerHTML = "<p>Failed to load activities. Please try again later.</p>";
+      console.error("Error fetching activities:", error);
+    }
+  }
+
   // Handle form submission
   signupForm.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -76,15 +86,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Initialize app with error handling
-  async function initializeApp() {
-    try {
-      await fetchActivities();
-    } catch (error) {
-      activitiesList.innerHTML = "<p>Failed to load activities. Please try again later.</p>";
-      console.error("Error initializing app:", error);
-    }
-  }
-  
+  // Initialize app with centralized error handling
   initializeApp();
 });
